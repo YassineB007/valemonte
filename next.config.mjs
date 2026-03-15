@@ -18,6 +18,23 @@ const nextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self' https://app.storyblok.com;",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "ALLOW-FROM https://app.storyblok.com/",
+          },
+        ],
+      },
+    ];
+  },
   serverExternalPackages: ['@prisma/client', '@prisma/adapter-pg'],
 };
 
