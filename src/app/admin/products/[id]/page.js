@@ -24,6 +24,8 @@ export default async function EditProductPage({ params }) {
     // For the simple image approach, we'll grab the first image's URL
     const mainImageUrl = product.images[0]?.url || "";
 
+    const sizesString = product.variants.map(v => `${v.size}:${v.stock}`).join(", ") || "One Size:10";
+
     return (
         <div>
             <div className={styles.pageHeader}>
@@ -66,6 +68,11 @@ export default async function EditProductPage({ params }) {
                             ))}
                         </select>
                     </div>
+                </div>
+
+                <div className={formStyles.field} style={{ marginTop: "24px" }}>
+                    <label htmlFor="sizes" className={formStyles.label}>Sizes & Stock (Format: Size:Stock, comma separated)</label>
+                    <input id="sizes" name="sizes" type="text" className={formStyles.input} defaultValue={sizesString} placeholder="e.g. S:10, M:20, L:0" required />
                 </div>
 
                 <div className={formStyles.field} style={{ marginTop: "24px" }}>

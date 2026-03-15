@@ -28,6 +28,15 @@ export default function ProductActions({ variants, product }) {
         setTimeout(() => setAdded(false), 2000);
     };
 
+    const isCompletelyOutOfStock = variants.length > 0 && variants.every((v) => v.stock === 0);
+    const requiresSizeSelection = variants.length > 0 && !selectedSize;
+    const isDisabled = isCompletelyOutOfStock || requiresSizeSelection;
+
+    let buttonText = "Add to Bag";
+    if (isCompletelyOutOfStock) buttonText = "Out of Stock";
+    else if (added) buttonText = "✓ Added";
+    else if (requiresSizeSelection) buttonText = "Select a Size";
+
     return (
         <>
             {variants.length > 0 && (
@@ -41,7 +50,7 @@ export default function ProductActions({ variants, product }) {
                                 disabled={v.stock === 0}
                                 onClick={() => setSelectedSize(v.id)}
                             >
-                                {v.size}
+                                {v.size} {v.stock === 0 ? "(Out)" : ""}
                             </button>
                         ))}
                     </div>
@@ -51,10 +60,10 @@ export default function ProductActions({ variants, product }) {
             <button
                 className={`${styles.addBtn} ${added ? styles.addBtnSuccess : ""}`}
                 onClick={handleAdd}
-                disabled={variants.length > 0 && !selectedSize}
-                style={variants.length > 0 && !selectedSize ? { opacity: 0.5, cursor: "not-allowed" } : {}}
+                disabled={isDisabled}
+                style={isDisabled ? { opacity: 0.5, cursor: "not-allowed" } : {}}
             >
-                {added ? "✓ Added to Bag" : variants.length > 0 && !selectedSize ? "Select a Size" : "Add to Bag"}
+                {buttonText}
             </button>
         </>
     );

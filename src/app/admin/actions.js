@@ -25,6 +25,17 @@ export async function createProduct(formData) {
 
     const imageUrl = await uploadFileToR2(imageFile, "products");
 
+    const sizesRaw = formData.get("sizes") || "One Size:10"; 
+    const sizePieces = sizesRaw.split(",").map(s => s.trim()).filter(Boolean);
+    const variantsData = sizePieces.map(piece => {
+        const [size, stockStr] = piece.split(":");
+        return {
+            size: size.trim(),
+            stock: parseInt(stockStr) || 0,
+            sku: `${slug}-${size.trim()}-${Date.now()}`
+        };
+    });
+
     await prisma.product.create({
         data: {
             name,
@@ -42,6 +53,9 @@ export async function createProduct(formData) {
                     alt: `${name} product shot`,
                     sortOrder: 0,
                 }
+            },
+            variants: {
+                create: variantsData
             }
         }
     });
@@ -75,6 +89,17 @@ export async function updateProduct(formData) {
         newImageUrl = await uploadFileToR2(imageFile, "products");
     }
 
+    const sizesRaw = formData.get("sizes") || "One Size:10"; 
+    const sizePieces = sizesRaw.split(",").map(s => s.trim()).filter(Boolean);
+    const variantsData = sizePieces.map(piece => {
+        const [size, stockStr] = piece.split(":");
+        return {
+            size: size?.trim() || "One Size",
+            stock: parseInt(stockStr) || 0,
+            sku: `${slug}-${size?.trim()}-${Date.now()}`
+        };
+    });
+
     await prisma.$transaction(async (tx) => {
         await tx.product.update({
             where: { id },
@@ -88,6 +113,36 @@ export async function updateProduct(formData) {
                 fabric,
                 careInfo,
                 isActive,
+            }
+        });
+
+        // Upsert variants
+        for (const v of variantsData) {
+            const existing = await tx.productVariant.findFirst({
+                where: { productId: id, size: v.size }
+            });
+            if (existing) {
+                await tx.productVariant.update({
+                    where: { id: existing.id },
+                    data: { stock: v.stock }
+                });
+            } else {
+                await tx.productVariant.create({
+                    data: {
+                        productId: id,
+                        size: v.size,
+                        stock: v.stock,
+                        sku: v.sku
+                    }
+                });
+            }
+        }
+
+        // Delete any variants that are no longer requested
+        await tx.productVariant.deleteMany({
+            where: {
+                productId: id,
+                size: { notIn: variantsData.map(v => v.size) }
             }
         });
 

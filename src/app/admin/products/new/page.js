@@ -60,6 +60,11 @@ export default async function NewProductPage() {
                     <textarea id="description" name="description" className={formStyles.textarea} rows="4" placeholder="Product details..."></textarea>
                 </div>
 
+                <div className={formStyles.field} style={{ marginTop: "24px" }}>
+                    <label htmlFor="sizes" className={formStyles.label}>Sizes & Stock (Format: Size:Stock, comma separated)</label>
+                    <input id="sizes" name="sizes" type="text" className={formStyles.input} placeholder="e.g. S:10, M:20, L:0" defaultValue="One Size:10" required />
+                </div>
+
                 <div className={formStyles.grid} style={{ marginTop: "24px" }}>
                     <div className={formStyles.field}>
                         <label htmlFor="fabric" className={formStyles.label}>Fabric</label>
