@@ -9,6 +9,8 @@ export const metadata = {
     description: "Browse our collection of luxury Italian menswear. Handcrafted jackets, trousers, shirts, and accessories.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function ShopPage({ searchParams }) {
     const params = await searchParams;
     const categorySlug = params?.category;

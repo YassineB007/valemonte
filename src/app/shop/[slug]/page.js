@@ -16,6 +16,8 @@ export async function generateMetadata({ params }) {
     };
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProductPage({ params }) {
     const { slug } = await params;
 

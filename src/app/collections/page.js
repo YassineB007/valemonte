@@ -9,6 +9,8 @@ export const metadata = {
     description: "Explore Valemonte's seasonal collections of luxury Italian menswear.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function CollectionsPage() {
     const collections = await prisma.collection.findMany({
         where: { isActive: true },
