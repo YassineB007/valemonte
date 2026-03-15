@@ -23,6 +23,7 @@ model Profile {
   updatedAt DateTime @updatedAt
 
   addresses Address[]
+  orders    Order[]
 }
 
 model Address {
@@ -113,3 +114,49 @@ model ProductVariant {
   @@unique([productId, size, color])
 }
 
+// ──────────────────────────────────────
+// Orders
+// ──────────────────────────────────────
+
+model Order {
+  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId    String?     @db.Uuid // Optional, for guest checkout
+  profile      Profile?    @relation(fields: [profileId], references: [id])
+  status       OrderStatus @default(PENDING)
+  totalAmount  Decimal     @db.Decimal(10, 2)
+  items        OrderItem[]
+
+  // Shipping details
+  customerName String
+  customerEmail String
+  addressLine1  String
+  addressCity   String
+  addressState  String?
+  addressZip    String
+  addressCountry String @default("IT")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orderId   String  @db.Uuid
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  productId String  @db.Uuid
+  productName String
+  variantId String  @db.Uuid
+  size      String
+  
+  quantity  Int
+  price     Decimal @db.Decimal(10, 2) // Price at the time of purchase
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}

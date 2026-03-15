@@ -33,6 +33,7 @@ export default async function AdminLayout({ children }) {
                     <Link href="/admin" className={styles.navLink}>Dashboard</Link>
                     <Link href="/admin/products" className={styles.navLink}>Products</Link>
                     <Link href="/admin/collections" className={styles.navLink}>Collections</Link>
+                    <Link href="/admin/orders" className={styles.navLink}>Orders</Link>
                     <Link href="/admin/users" className={styles.navLink}>Users</Link>
                 </nav>
 

@@ -1,0 +1,136 @@
+.page {
+    min-height: 100vh;
+    background: var(--clr-bg);
+    padding: 120px 48px 80px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.heading {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    color: var(--clr-cream);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--clr-cream-dim);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--clr-cream-dim);
+}
+
+.input {
+    background: transparent;
+    border: 1px solid var(--clr-cream-ghost);
+    padding: 14px 16px;
+    color: var(--clr-cream);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input:focus {
+    border-color: var(--clr-gold-muted);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.note {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 2px solid var(--clr-gold-muted);
+    padding: 16px;
+    color: var(--clr-cream-dim);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.submitBtn {
+    padding: 18px 40px;
+    background: var(--clr-cream);
+    color: var(--clr-bg);
+    border: none;
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background: var(--clr-gold);
+}
+
+.submitBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.successState {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.successIcon {
+    font-size: 64px;
+    margin-bottom: 24px;
+}
+
+.successText {
+    color: var(--clr-cream-dim);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding: 100px 20px 60px;
+    }
+    .row {
+        grid-template-columns: 1fr;
+    }
+}

@@ -117,9 +117,9 @@ export default function CartPage() {
                                     </span>
                                 </div>
 
-                                <button className={styles.checkoutBtn}>
+                                <Link href="/checkout" className={styles.checkoutBtn} style={{ textAlign: "center", textDecoration: "none", display: "inline-block" }}>
                                     Proceed to Checkout
-                                </button>
+                                </Link>
 
                                 <Link href="/shop" className={styles.continueShopping}>
                                     ← Continue Shopping
