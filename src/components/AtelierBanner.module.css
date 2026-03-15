@@ -1,0 +1,88 @@
+.atelier {
+    position: relative;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--clr-surface), var(--clr-bg));
+}
+
+.pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+        linear-gradient(rgba(201, 169, 110, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 169, 110, 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 0 24px;
+    animation: fadeInUp 0.8s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+}
+
+.label {
+    display: block;
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--clr-gold);
+    margin-bottom: 28px;
+}
+
+.heading {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--clr-cream);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.body {
+    font-family: var(--font-sans, "Inter", sans-serif);
+    color: var(--clr-cream-dim);
+    max-width: 400px;
+    margin: 0 auto 40px;
+    font-size: 14px;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.cta {
+    display: inline-block;
+    padding: 16px 44px;
+    border: 1px solid var(--clr-cream-dim);
+    color: var(--clr-cream);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+}
+
+.cta:hover {
+    background: var(--clr-cream);
+    color: var(--clr-bg);
+    border-color: var(--clr-cream);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

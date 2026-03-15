@@ -1,0 +1,388 @@
+.collection {
+    background: var(--clr-bg);
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
+.outfit {
+    width: 100%;
+    min-height: 65vh;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.8s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+}
+
+@media (min-width: 1024px) {
+    .outfit {
+        width: 55%;
+        min-height: 100vh;
+    }
+}
+
+.outfitGradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--clr-bg) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.outfitImg {
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* ── Transition wrapper ── */
+
+.outfitInner {
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.35s ease;
+}
+
+.fadeIn {
+    opacity: 1;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+
+/* ── Carousel Arrows ── */
+
+.arrows {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 3;
+}
+
+.arrowBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 207, 197, 0.2);
+    background: rgba(10, 8, 6, 0.45);
+    backdrop-filter: blur(8px);
+    color: var(--clr-cream);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.arrowBtn:hover {
+    background: rgba(201, 169, 110, 0.15);
+    border-color: rgba(201, 169, 110, 0.4);
+    color: var(--clr-gold);
+}
+
+/* ── Dot Indicators ── */
+
+.dots {
+    position: absolute;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(212, 207, 197, 0.25);
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    background: rgba(212, 207, 197, 0.5);
+}
+
+.dotActive {
+    background: var(--clr-gold);
+    transform: scale(1.3);
+}
+
+.monogram {
+    position: absolute;
+    bottom: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.frame {
+    width: 200px;
+    height: 320px;
+    border: 1px solid rgba(201, 169, 110, 0.15);
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.letter {
+    font-family: var(--font-serif, "Cormorant Garamond", serif);
+    font-size: 64px;
+    font-weight: 200;
+    color: rgba(201, 169, 110, 0.2);
+    letter-spacing: 4px;
+}
+
+.seasonLabel {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.4);
+    font-weight: 300;
+}
+
+.pieces {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 32px;
+}
+
+@media (min-width: 1024px) {
+    .pieces {
+        width: 45%;
+        padding: 48px 64px;
+    }
+}
+
+.label {
+    display: block;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--clr-gold);
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--clr-cream-ghost);
+    transition: all 0.7s ease-out;
+    animation: fadeInUp 0.8s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item:hover .cta {
+    color: var(--clr-gold);
+}
+
+.swatch {
+    width: 90px;
+    height: 110px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.swatchImg {
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.item:hover .swatchImg {
+    transform: scale(1.05);
+}
+
+.swatchTexture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.1) 2px,
+            rgba(255, 255, 255, 0.1) 3px);
+}
+
+.name {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 300;
+    color: var(--clr-cream);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.desc {
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 11px;
+    color: var(--clr-cream-faint);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.cta {
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--clr-gold-muted);
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Empty / Fallback State ── */
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 64px 32px;
+    text-align: center;
+}
+
+.emptyHeading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--clr-cream);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 16px 0;
+}
+
+.emptyText {
+    color: var(--clr-cream-dim);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 400px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+}
+
+.emptyLink {
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--clr-gold-muted);
+    text-decoration: none;
+    padding: 14px 36px;
+    border: 1px solid var(--clr-cream-ghost);
+    transition: all 0.3s;
+}
+
+.emptyLink:hover {
+    border-color: var(--clr-gold-muted);
+    color: var(--clr-gold);
+}
+
+/* ── Placeholders ── */
+
+.outfitPlaceholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.outfitPlaceholderText {
+    font-family: var(--font-serif, "Cormorant Garamond", serif);
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--clr-cream-faint);
+}
+
+.swatchPlaceholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--clr-cream-faint);
+    font-size: 8px;
+    font-family: var(--font-sans, "Inter", sans-serif);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ── View All Link ── */
+
+.viewAll {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--clr-gold-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.viewAll:hover {
+    color: var(--clr-gold);
+}

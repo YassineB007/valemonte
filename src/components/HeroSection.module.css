@@ -1,0 +1,95 @@
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--clr-bg);
+}
+
+.bg {
+    position: absolute;
+    inset: 0;
+    animation: heroZoomIn 2s ease-out 0.2s both;
+}
+
+.gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1a1714 0%, #2a2520 30%, #1a1714 60%, #0e0d0b 100%);
+}
+
+.texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 50px,
+            rgba(201, 169, 110, 0.3) 50px,
+            rgba(201, 169, 110, 0.3) 51px);
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    text-align: center;
+}
+
+.heading {
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: 0.04em;
+    color: var(--clr-cream);
+    margin-bottom: 40px;
+    animation: fadeInUp 1.5s ease-out 0.5s both;
+}
+
+.cta {
+    display: inline-block;
+    padding: 16px 44px;
+    border: 1px solid var(--clr-cream-dim);
+    color: var(--clr-cream);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    animation: fadeInUp 1.5s ease-out 0.9s both;
+}
+
+.cta:hover {
+    background: var(--clr-cream);
+    color: var(--clr-bg);
+    border-color: var(--clr-cream);
+}
+
+@keyframes heroZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
