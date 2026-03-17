@@ -292,3 +292,37 @@ export async function updateUserRole(formData) {
     revalidatePath("/admin/users");
     redirect("/admin/users");
 }
+
+export async function updateOrderStatus(formData) {
+    const id = formData.get("id");
+    const status = formData.get("status");
+
+    if (!id || !status) {
+        throw new Error("Missing required fields");
+    }
+
+    // Ensure the person making the request is an admin
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+        throw new Error("Not authenticated");
+    }
+
+    const callingUser = await prisma.profile.findUnique({
+        where: { authId: user.id },
+    });
+
+    if (callingUser?.role !== "ADMIN") {
+        throw new Error("Unauthorized: Only admins can manage orders");
+    }
+
+    await prisma.order.update({
+        where: { id },
+        data: { status },
+    });
+
+    revalidatePath("/admin/orders");
+    revalidatePath(`/admin/orders/${id}`);
+    // No redirect here, just stay on the detail page to see updated status
+}

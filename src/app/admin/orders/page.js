@@ -34,6 +34,7 @@ export default async function AdminOrdersPage() {
                                 <th style={{ padding: "16px 24px", color: "var(--clr-cream-dim)", fontSize: "11px", fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase" }}>Amount</th>
                                 <th style={{ padding: "16px 24px", color: "var(--clr-cream-dim)", fontSize: "11px", fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase" }}>Status</th>
                                 <th style={{ padding: "16px 24px", color: "var(--clr-cream-dim)", fontSize: "11px", fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase", textAlign: "right" }}>Date</th>
+                                <th style={{ padding: "16px 24px", color: "var(--clr-cream-dim)", fontSize: "11px", fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase", textAlign: "right" }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,6 +60,11 @@ export default async function AdminOrdersPage() {
                                     </td>
                                     <td style={{ padding: "16px 24px", textAlign: "right", color: "var(--clr-cream-dim)", fontSize: "13px" }}>
                                         {new Date(o.createdAt).toLocaleDateString()}
+                                    </td>
+                                    <td style={{ padding: "16px 24px", textAlign: "right" }}>
+                                        <Link href={`/admin/orders/${o.id}`} className={styles.actionBtn} style={{ background: "transparent", border: "1px solid var(--clr-cream-ghost)", color: "var(--clr-cream)", padding: "6px 12px", fontSize: "10px" }}>
+                                            View Details
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}
