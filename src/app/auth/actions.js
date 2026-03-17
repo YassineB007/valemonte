@@ -22,6 +22,17 @@ export async function signUp(prevState, formData) {
     });
 
     if (error) {
+        console.error("Supabase Auth Error:", error);
+        
+        if (error.message.includes("Error sending confirmation email")) {
+            return { 
+                error: "Supabase failed to send the email via Resend. Check your Supabase Dashboard -> Logs -> Auth to see the exact reason (e.g. invalid redirect URL, or unverified Resend domain)."
+            };
+        }
+        
+        if (error.message.includes("rate limit")) {
+            return { error: "Supabase email limit reached. Please wait or disable email confirmation in Supabase." };
+        }
         return { error: error.message };
     }
 
@@ -40,6 +51,11 @@ export async function signUp(prevState, formData) {
             console.error("Profile creation error:", dbError);
             return { error: "Account created but profile setup failed. Please contact support." };
         }
+    }
+
+    // If session is returned, "Confirm Email" is disabled, so they are auto-logged in.
+    if (data.session) {
+        redirect("/account");
     }
 
     return { success: true };
@@ -102,8 +118,15 @@ export async function resetPassword(prevState, formData) {
     const supabase = await createClient();
     const email = formData.get("email");
 
+    // Get the base URL from the incoming request headers
+    const { headers } = require('next/headers');
+    const headerList = await headers();
+    const host = headerList.get('host');
+    const protocol = host.includes('localhost') ? 'http' : 'https';
+    const baseUrl = `${protocol}://${host}`;
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/auth/callback?next=/reset-password`,
+        redirectTo: `${baseUrl}/auth/callback?next=/reset-password`,
     });
 
     if (error) {
