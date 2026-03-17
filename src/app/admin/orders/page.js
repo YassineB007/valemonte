@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import prisma from "@/lib/prisma";
+import Link from "next/link";
 import styles from "../admin.module.css";
 
 export const metadata = { title: "Manage Orders | Valemonte Admin" };
