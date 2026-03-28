@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./CollectionSection.module.css";
 
 export default function CollectionCarousel({ collections }) {
@@ -37,18 +38,22 @@ export default function CollectionCarousel({ collections }) {
                         className={`${styles.outfitInner} ${isTransitioning ? styles.fadeOut : styles.fadeIn}`}
                     >
                         {collection.coverImage ? (
-                            <img
+                            <Image
                                 src={collection.coverImage}
                                 alt={`${collection.name} collection`}
                                 className={styles.outfitImg}
-                                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+                                fill
+                                sizes="(max-width: 900px) 100vw, 45vw"
+                                priority={activeIndex === 0}
                             />
                         ) : collection.products[0]?.imageUrl ? (
-                            <img
+                            <Image
                                 src={collection.products[0].imageUrl}
                                 alt={collection.products[0].name}
                                 className={styles.outfitImg}
-                                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+                                fill
+                                sizes="(max-width: 900px) 100vw, 45vw"
+                                priority={activeIndex === 0}
                             />
                         ) : (
                             <div className={styles.outfitPlaceholder}>
@@ -116,11 +121,12 @@ export default function CollectionCarousel({ collections }) {
                             >
                                 <div className={styles.swatch}>
                                     {product.imageUrl ? (
-                                        <img
+                                        <Image
                                             src={product.imageUrl}
                                             alt={product.name}
                                             className={styles.swatchImg}
-                                            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                                            fill
+                                            sizes="90px"
                                         />
                                     ) : (
                                         <div className={styles.swatchPlaceholder}>

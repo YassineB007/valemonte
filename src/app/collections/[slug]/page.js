@@ -1,13 +1,14 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import prisma from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getCollectionBySlug } from "@/lib/cached-queries";
 import styles from "../collections.module.css";
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
-    const col = await prisma.collection.findUnique({ where: { slug } });
+    const col = await getCollectionBySlug(slug);
     if (!col) return { title: "Collection Not Found — Valemonte" };
     return {
         title: `${col.name} — Valemonte`,
@@ -15,24 +16,12 @@ export async function generateMetadata({ params }) {
     };
 }
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export default async function CollectionPage({ params }) {
     const { slug } = await params;
 
-    const collection = await prisma.collection.findUnique({
-        where: { slug },
-        include: {
-            products: {
-                where: { isActive: true },
-                include: {
-                    category: true,
-                    images: { orderBy: { sortOrder: "asc" }, take: 1 },
-                },
-                orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
-            },
-        },
-    });
+    const collection = await getCollectionBySlug(slug);
 
     if (!collection) notFound();
 
@@ -68,10 +57,12 @@ export default async function CollectionPage({ params }) {
                     >
                         <div className={styles.productImageWrap}>
                             {product.images[0] ? (
-                                <img
+                                <Image
                                     src={product.images[0].url}
                                     alt={product.name}
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    fill
+                                    sizes="(max-width: 768px) 50vw, 280px"
+                                    style={{ objectFit: "cover" }}
                                 />
                             ) : (
                                 product.category.name

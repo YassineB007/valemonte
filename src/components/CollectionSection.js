@@ -1,31 +1,12 @@
 import styles from "./CollectionSection.module.css";
 import Link from "next/link";
-import prisma from "@/lib/prisma";
+import { getCollectionsForCarousel } from "@/lib/cached-queries";
 import CollectionCarousel from "./CollectionCarousel";
 import { storyblokEditable } from "@storyblok/react/rsc";
 
 export default async function CollectionSection({ blok }) {
-    // Fetch ALL active collections with their top products
-    const collections = await prisma.collection.findMany({
-        where: { isActive: true },
-        orderBy: { createdAt: "asc" },
-        include: {
-            products: {
-                where: { isActive: true },
-                include: {
-                    category: true,
-                    images: { orderBy: { sortOrder: "asc" }, take: 1 },
-                },
-                orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
-                take: 3,
-            },
-        },
-    });
+    const validCollections = await getCollectionsForCarousel();
 
-    // Filter out collections that have no products at all
-    const validCollections = collections.filter(c => c.products.length > 0);
-
-    // If no collections with products exist, show a tasteful fallback
     if (validCollections.length === 0) {
         return (
             <section id="collection" className={styles.collection} {...(blok ? storyblokEditable(blok) : {})}>
@@ -43,28 +24,9 @@ export default async function CollectionSection({ blok }) {
         );
     }
 
-    // Serialize data for the client component (Decimal → string, Date → string)
-    const serialized = validCollections.map(c => ({
-        id: c.id,
-        name: c.name,
-        slug: c.slug,
-        season: c.season,
-        coverImage: c.coverImage,
-        description: c.description,
-        products: c.products.map(p => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-            description: p.description,
-            price: p.price.toString(),
-            categoryName: p.category.name,
-            imageUrl: p.images[0]?.url || null,
-        })),
-    }));
-
     return (
         <div {...(blok ? storyblokEditable(blok) : {})}>
-            <CollectionCarousel collections={serialized} />
+            <CollectionCarousel collections={validCollections} />
         </div>
     );
 }

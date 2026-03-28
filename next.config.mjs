@@ -8,6 +8,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "pub-6fe1568e96b44473bc8929a321b51b0f.r2.dev",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
     ],
   },
   async rewrites() {
@@ -25,11 +30,7 @@ const nextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "frame-ancestors 'self' https://app.storyblok.com;",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "ALLOW-FROM https://app.storyblok.com/",
+            value: "frame-ancestors *;",
           },
         ],
       },

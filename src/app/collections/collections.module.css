@@ -247,6 +247,7 @@
 }
 
 .productImageWrap {
+    position: relative;
     aspect-ratio: 3 / 4;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--clr-cream-ghost);

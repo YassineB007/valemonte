@@ -1,14 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import prisma from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getProductBySlug } from "@/lib/cached-queries";
 import ProductActions from "./ProductActions";
 import styles from "./product.module.css";
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
-    const product = await prisma.product.findUnique({ where: { slug } });
+    const product = await getProductBySlug(slug);
     if (!product) return { title: "Product Not Found — Valemonte" };
     return {
         title: `${product.name} — Valemonte`,
@@ -16,20 +17,12 @@ export async function generateMetadata({ params }) {
     };
 }
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export default async function ProductPage({ params }) {
     const { slug } = await params;
 
-    const product = await prisma.product.findUnique({
-        where: { slug },
-        include: {
-            category: true,
-            collection: true,
-            images: { orderBy: { sortOrder: "asc" } },
-            variants: { orderBy: { size: "asc" } },
-        },
-    });
+    const product = await getProductBySlug(slug);
 
     if (!product) notFound();
 
@@ -60,9 +53,15 @@ export default async function ProductPage({ params }) {
                 {/* Gallery */}
                 <div className={styles.gallery}>
                     {product.images.length > 0 ? (
-                        product.images.map((img) => (
+                        product.images.map((img, i) => (
                             <div key={img.id} className={styles.mainImage}>
-                                <img src={img.url} alt={img.alt || product.name} />
+                                <Image
+                                    src={img.url}
+                                    alt={img.alt || product.name}
+                                    fill
+                                    sizes="(max-width: 900px) 100vw, 50vw"
+                                    priority={i === 0}
+                                />
                             </div>
                         ))
                     ) : (

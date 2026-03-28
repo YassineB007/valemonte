@@ -1,7 +1,8 @@
 import Link from "next/link";
-import prisma from "@/lib/prisma";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getCollectionsList } from "@/lib/cached-queries";
 import styles from "./collections.module.css";
 
 export const metadata = {
@@ -9,13 +10,10 @@ export const metadata = {
     description: "Explore Valemonte's seasonal collections of luxury Italian menswear.",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
 export default async function CollectionsPage() {
-    const collections = await prisma.collection.findMany({
-        where: { isActive: true },
-        orderBy: { createdAt: "asc" },
-    });
+    const collections = await getCollectionsList();
 
     return (
         <>
@@ -39,10 +37,12 @@ export default async function CollectionsPage() {
                             className={styles.card}
                         >
                             {col.coverImage ? (
-                                <img
+                                <Image
                                     className={styles.cardImage}
                                     src={col.coverImage}
                                     alt={col.name}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 420px"
                                 />
                             ) : (
                                 <div className={styles.cardPlaceholder} />

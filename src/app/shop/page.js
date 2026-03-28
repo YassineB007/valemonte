@@ -1,7 +1,8 @@
 import Link from "next/link";
-import prisma from "@/lib/prisma";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getShopCategories, getShopProducts } from "@/lib/cached-queries";
 import styles from "./shop.module.css";
 
 export const metadata = {
@@ -9,27 +10,16 @@ export const metadata = {
     description: "Browse our collection of luxury Italian menswear. Handcrafted jackets, trousers, shirts, and accessories.",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
 export default async function ShopPage({ searchParams }) {
     const params = await searchParams;
     const categorySlug = params?.category;
 
-    const categories = await prisma.category.findMany({
-        orderBy: { sortOrder: "asc" },
-    });
-
-    const products = await prisma.product.findMany({
-        where: {
-            isActive: true,
-            ...(categorySlug ? { category: { slug: categorySlug } } : {}),
-        },
-        include: {
-            category: true,
-            images: { orderBy: { sortOrder: "asc" }, take: 1 },
-        },
-        orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
-    });
+    const [categories, products] = await Promise.all([
+        getShopCategories(),
+        getShopProducts(categorySlug),
+    ]);
 
     return (
         <>
@@ -84,10 +74,12 @@ export default async function ShopPage({ searchParams }) {
                                         <span className={styles.featuredBadge}>Featured</span>
                                     )}
                                     {product.images[0] ? (
-                                        <img
+                                        <Image
                                             className={styles.image}
                                             src={product.images[0].url}
                                             alt={product.images[0].alt || product.name}
+                                            fill
+                                            sizes="(max-width: 768px) 50vw, 280px"
                                         />
                                     ) : (
                                         <div className={styles.imagePlaceholder}>
