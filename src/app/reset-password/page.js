@@ -3,13 +3,14 @@
 import { useActionState } from "react";
 import { updatePassword } from "@/app/auth/actions";
 import Link from "next/link";
+import Main from "@/components/Main";
 import styles from "../login/login.module.css";
 
 export default function ResetPasswordPage() {
     const [state, formAction, isPending] = useActionState(updatePassword, null);
 
     return (
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <Link href="/" className={styles.backLink}>Valemonte</Link>
             <div className={styles.card}>
                 <h1 className={styles.heading}>New Password</h1>
@@ -53,6 +54,6 @@ export default function ResetPasswordPage() {
                     </button>
                 </form>
             </div>
-        </div>
+        </Main>
     );
 }

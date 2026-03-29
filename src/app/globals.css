@@ -64,6 +64,28 @@ html {
   border: 0;
 }
 
+/* Skip link: off-screen until keyboard focus */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+  padding: 12px 20px;
+  background: var(--clr-cream);
+  color: var(--clr-bg);
+  font-family: var(--font-sans, "Inter", sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  outline: 2px solid var(--clr-gold);
+  outline-offset: 2px;
+}
+
 body {
   background: var(--clr-bg);
   color: var(--clr-cream);

@@ -3,13 +3,14 @@
 import { useActionState } from "react";
 import { signIn } from "@/app/auth/actions";
 import Link from "next/link";
+import Main from "@/components/Main";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
     const [state, formAction, isPending] = useActionState(signIn, null);
 
     return (
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <Link href="/" className={styles.backLink}>Valemonte</Link>
             <div className={styles.card}>
                 <h1 className={styles.heading}>Welcome Back</h1>
@@ -55,6 +56,6 @@ export default function LoginPage() {
                     <Link href="/signup" className={styles.footerLink}>Create one</Link>
                 </p>
             </div>
-        </div>
+        </Main>
     );
 }

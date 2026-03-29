@@ -2,8 +2,8 @@
 
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import CollectionSection from "@/components/CollectionSection";
 import Footer from "@/components/Footer";
+import Main from "@/components/Main";
 import { getHomeStory } from "@/lib/cached-storyblok-home";
 import { StoryblokStory } from "@storyblok/react/rsc";
 
@@ -15,7 +15,13 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      {story ? <StoryblokStory story={story} /> : <HeroSection />}
+      {story ? (
+        <StoryblokStory story={story} />
+      ) : (
+        <Main>
+          <HeroSection />
+        </Main>
+      )}
       <Footer />
     </>
   );

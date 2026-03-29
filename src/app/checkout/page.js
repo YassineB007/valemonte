@@ -6,6 +6,7 @@ import { useCart } from "@/components/CartContext";
 import { processCheckout } from "./actions";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Main from "@/components/Main";
 import styles from "./checkout.module.css";
 
 export default function CheckoutPage() {
@@ -38,13 +39,25 @@ export default function CheckoutPage() {
         }
     };
 
-    if (!loaded) return null;
+    if (!loaded) {
+        return (
+            <>
+                <Navbar />
+                <Main className={styles.page}>
+                    <div className={styles.container}>
+                        <p className={styles.subtitle}>Loading checkout…</p>
+                    </div>
+                </Main>
+                <Footer />
+            </>
+        );
+    }
 
     if (status === "success") {
         return (
             <>
                 <Navbar />
-                <div className={styles.page}>
+                <Main className={styles.page}>
                     <div className={styles.container}>
                         <div className={styles.successState}>
                             <div className={styles.successIcon}>✓</div>
@@ -59,7 +72,7 @@ export default function CheckoutPage() {
                             </Link>
                         </div>
                     </div>
-                </div>
+                </Main>
                 <Footer />
             </>
         );
@@ -68,7 +81,7 @@ export default function CheckoutPage() {
     return (
         <>
             <Navbar />
-            <div className={styles.page}>
+            <Main className={styles.page}>
                 <div className={styles.container}>
                     <div className={styles.header}>
                         <h1 className={styles.heading}>Checkout</h1>
@@ -137,7 +150,7 @@ export default function CheckoutPage() {
                         </form>
                     )}
                 </div>
-            </div>
+            </Main>
             <Footer />
         </>
     );

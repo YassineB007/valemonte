@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Main from "@/components/Main";
 import styles from "../login/login.module.css";
 
 export default function VerifiedPage() {
     return (
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <Link href="/" className={styles.backLink}>Valemonte</Link>
             <div className={styles.card}>
                 <div style={{ textAlign: "center", padding: "20px 0" }}>
@@ -21,6 +22,6 @@ export default function VerifiedPage() {
                     </Link>
                 </div>
             </div>
-        </div>
+        </Main>
     );
 }

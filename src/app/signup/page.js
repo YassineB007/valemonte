@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { signUp } from "@/app/auth/actions";
 import Link from "next/link";
+import Main from "@/components/Main";
 import styles from "./signup.module.css";
 
 export default function SignupPage() {
@@ -10,7 +11,7 @@ export default function SignupPage() {
 
     if (state?.success) {
         return (
-            <div className={styles.page}>
+            <Main className={styles.page}>
                 <Link href="/" className={styles.backLink}>Valemonte</Link>
                 <div className={styles.card}>
                     <div style={{ textAlign: "center", padding: "20px 0" }}>
@@ -27,12 +28,12 @@ export default function SignupPage() {
                         </p>
                     </div>
                 </div>
-            </div>
+            </Main>
         );
     }
 
     return (
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <Link href="/" className={styles.backLink}>Valemonte</Link>
             <div className={styles.card}>
                 <h1 className={styles.heading}>Create Account</h1>
@@ -99,6 +100,6 @@ export default function SignupPage() {
                     <Link href="/login" className={styles.footerLink}>Sign in</Link>
                 </p>
             </div>
-        </div>
+        </Main>
     );
 }

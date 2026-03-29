@@ -2,7 +2,7 @@ import { storyblokEditable, StoryblokServerComponent } from "@storyblok/react/rs
 
 export default function Page({ blok }) {
   return (
-    <main {...storyblokEditable(blok)}>
+    <main id="main-content" tabIndex={-1} {...storyblokEditable(blok)}>
       {blok.body?.map((nestedBlok) => (
         <StoryblokServerComponent blok={nestedBlok} key={nestedBlok._uid} />
       ))}

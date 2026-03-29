@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Main from "@/components/Main";
 import { getCollectionsList } from "@/lib/cached-queries";
 import styles from "./collections.module.css";
 
@@ -18,7 +19,7 @@ export default async function CollectionsPage() {
     return (
         <>
         <Navbar />
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <div className={styles.header}>
                 <h1 className={styles.heading}>Collections</h1>
                 <p className={styles.subtitle}>
@@ -60,7 +61,7 @@ export default async function CollectionsPage() {
                     ))}
                 </div>
             )}
-        </div>
+        </Main>
         <Footer />
         </>
     );

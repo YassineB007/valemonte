@@ -1,9 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Main from "@/components/Main";
 import AccountForm from "./AccountForm";
 import styles from "./account.module.css";
 
@@ -33,7 +33,7 @@ export default async function AccountPage() {
     return (
         <>
         <Navbar />
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h1 className={styles.heading}>My Account</h1>
@@ -51,7 +51,7 @@ export default async function AccountPage() {
                     <AccountForm profile={profile} />
                 </div>
             </div>
-        </div>
+        </Main>
         <Footer />
         </>
     );

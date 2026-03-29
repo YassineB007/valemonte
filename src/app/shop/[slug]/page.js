@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Main from "@/components/Main";
 import { getProductBySlug } from "@/lib/cached-queries";
 import ProductActions from "./ProductActions";
 import styles from "./product.module.css";
@@ -44,7 +45,7 @@ export default async function ProductPage({ params }) {
     return (
         <>
         <Navbar />
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <Link href="/shop" className={styles.backLink}>
                 ← Back to Shop
             </Link>
@@ -119,7 +120,7 @@ export default async function ProductPage({ params }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Main>
         <Footer />
         </>
     );

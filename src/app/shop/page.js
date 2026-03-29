@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Main from "@/components/Main";
 import { getShopCategories, getShopProducts } from "@/lib/cached-queries";
 import styles from "./shop.module.css";
 
@@ -24,7 +25,7 @@ export default async function ShopPage({ searchParams }) {
     return (
         <>
         <Navbar />
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <div className={styles.header}>
                 <h1 className={styles.heading}>Shop</h1>
                 <p className={styles.subtitle}>
@@ -97,7 +98,7 @@ export default async function ShopPage({ searchParams }) {
                     )}
                 </div>
             </div>
-        </div>
+        </Main>
         <Footer />
         </>
     );

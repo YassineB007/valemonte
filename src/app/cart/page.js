@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCart } from "@/components/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Main from "@/components/Main";
 import styles from "./cart.module.css";
 
 export default function CartPage() {
@@ -14,13 +15,13 @@ export default function CartPage() {
         return (
             <>
                 <Navbar />
-                <div className={styles.page}>
+                <Main className={styles.page}>
                     <div className={styles.container}>
                         <div className={styles.header}>
                             <h1 className={styles.heading}>Your Bag</h1>
                         </div>
                     </div>
-                </div>
+                </Main>
                 <Footer />
             </>
         );
@@ -29,7 +30,7 @@ export default function CartPage() {
     return (
         <>
             <Navbar />
-            <div className={styles.page}>
+            <Main className={styles.page}>
                 <div className={styles.container}>
                     <div className={styles.header}>
                         <h1 className={styles.heading}>Your Bag</h1>
@@ -139,7 +140,7 @@ export default function CartPage() {
                         </>
                     )}
                 </div>
-            </div>
+            </Main>
             <Footer />
         </>
     );

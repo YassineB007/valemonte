@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { resetPassword } from "@/app/auth/actions";
 import Link from "next/link";
+import Main from "@/components/Main";
 import styles from "../login/login.module.css";
 
 export default function ForgotPasswordPage() {
@@ -10,7 +11,7 @@ export default function ForgotPasswordPage() {
 
     if (state?.success) {
         return (
-            <div className={styles.page}>
+            <Main className={styles.page}>
                 <Link href="/" className={styles.backLink}>Valemonte</Link>
                 <div className={styles.card}>
                     <h1 className={styles.heading}>Check Your Email</h1>
@@ -24,12 +25,12 @@ export default function ForgotPasswordPage() {
                         </Link>
                     </p>
                 </div>
-            </div>
+            </Main>
         );
     }
 
     return (
-        <div className={styles.page}>
+        <Main className={styles.page}>
             <Link href="/" className={styles.backLink}>Valemonte</Link>
             <div className={styles.card}>
                 <h1 className={styles.heading}>Forgot Password</h1>
@@ -66,6 +67,6 @@ export default function ForgotPasswordPage() {
                     </Link>
                 </p>
             </div>
-        </div>
+        </Main>
     );
 }

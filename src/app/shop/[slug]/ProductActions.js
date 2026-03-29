@@ -41,14 +41,27 @@ export default function ProductActions({ variants, product }) {
         <>
             {variants.length > 0 && (
                 <>
-                    <p className={styles.sectionLabel}>Size</p>
-                    <div className={styles.sizes}>
+                    <p className={styles.sectionLabel} id="product-size-label">
+                        Size
+                    </p>
+                    <div
+                        className={styles.sizes}
+                        role="group"
+                        aria-labelledby="product-size-label"
+                    >
                         {variants.map((v) => (
                             <button
                                 key={v.id}
+                                type="button"
                                 className={`${styles.sizeBtn} ${v.stock === 0 ? styles.sizeBtnOut : ""} ${selectedSize === v.id ? styles.sizeBtnActive : ""}`}
                                 disabled={v.stock === 0}
                                 onClick={() => setSelectedSize(v.id)}
+                                aria-pressed={selectedSize === v.id}
+                                aria-label={
+                                    v.stock === 0
+                                        ? `${v.size}, out of stock`
+                                        : `Size ${v.size}${selectedSize === v.id ? ", selected" : ""}`
+                                }
                             >
                                 {v.size} {v.stock === 0 ? "(Out)" : ""}
                             </button>
@@ -58,6 +71,7 @@ export default function ProductActions({ variants, product }) {
             )}
 
             <button
+                type="button"
                 className={`${styles.addBtn} ${added ? styles.addBtnSuccess : ""}`}
                 onClick={handleAdd}
                 disabled={isDisabled}
