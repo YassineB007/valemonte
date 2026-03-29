@@ -83,13 +83,17 @@
     align-items: flex-start;
 }
 
-.itemImage {
+.itemImageWrap {
+    position: relative;
     width: 100px;
     height: 130px;
-    object-fit: cover;
-    border: 1px solid var(--clr-cream-ghost);
     flex-shrink: 0;
+    border: 1px solid var(--clr-cream-ghost);
     background: rgba(255, 255, 255, 0.03);
+}
+
+.itemImage {
+    object-fit: cover;
 }
 
 .itemImagePlaceholder {
@@ -151,12 +155,15 @@
 }
 
 .qtyBtn {
-    width: 28px;
-    height: 28px;
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
     border: 1px solid var(--clr-cream-ghost);
     background: transparent;
     color: var(--clr-cream);
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -184,7 +191,8 @@
     font-size: 11px;
     letter-spacing: 1px;
     cursor: pointer;
-    padding: 0;
+    min-height: 44px;
+    padding: 0 8px;
     margin-left: auto;
     transition: color 0.3s;
 }
@@ -271,7 +279,7 @@
         gap: 16px;
     }
 
-    .itemImage,
+    .itemImageWrap,
     .itemImagePlaceholder {
         width: 80px;
         height: 104px;

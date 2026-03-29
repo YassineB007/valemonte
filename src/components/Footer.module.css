@@ -42,7 +42,7 @@
     font-size: 10px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: rgba(212, 207, 197, 0.3);
+    color: rgba(212, 207, 197, 0.55);
     margin-bottom: 24px;
     font-weight: 300;
 }
@@ -54,7 +54,7 @@
 }
 
 .link {
-    color: var(--clr-cream-faint);
+    color: var(--clr-cream-dim);
     font-size: 13px;
     font-weight: 300;
     transition: color 0.3s;
@@ -76,7 +76,7 @@
 }
 
 .copyright {
-    color: rgba(212, 207, 197, 0.15);
+    color: rgba(212, 207, 197, 0.45);
     font-family: var(--font-sans, "Inter", sans-serif);
     font-size: 11px;
     letter-spacing: 2px;

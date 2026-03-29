@@ -32,9 +32,10 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <div className={styles.inner}>
+                <h2 className="sr-only">Site footer</h2>
                 <div className={styles.grid}>
                     <div>
-                        <h3 className={styles.brand}>Valemonte</h3>
+                        <p className={styles.brand}>Valemonte</p>
                         <p className={styles.tagline}>
                             Italian luxury menswear,
                             <br />
@@ -43,8 +44,10 @@ export default function Footer() {
                     </div>
 
                     {COLUMNS.map((col) => (
-                        <div key={col.title}>
-                            <h4 className={styles.colTitle}>{col.title}</h4>
+                        <nav key={col.title} aria-labelledby={`footer-${col.title}`}>
+                            <h3 id={`footer-${col.title}`} className={styles.colTitle}>
+                                {col.title}
+                            </h3>
                             <ul className={styles.list}>
                                 {col.items.map((item) => (
                                     <li key={item.label}>
@@ -52,7 +55,7 @@ export default function Footer() {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </nav>
                     ))}
                 </div>
 

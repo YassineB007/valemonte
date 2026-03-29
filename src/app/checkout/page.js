@@ -88,39 +88,39 @@ export default function CheckoutPage() {
                             <h2 className={styles.subtitle} style={{ marginBottom: "12px", borderBottom: "1px solid var(--clr-cream-ghost)", paddingBottom: "12px" }}>Shipping Details</h2>
                             
                             <div className={styles.formGroup}>
-                                <label className={styles.label}>Full Name *</label>
-                                <input name="name" type="text" className={styles.input} required />
+                                <label className={styles.label} htmlFor="checkout-name">Full Name *</label>
+                                <input id="checkout-name" name="name" type="text" className={styles.input} required autoComplete="name" />
                             </div>
 
                             <div className={styles.formGroup}>
-                                <label className={styles.label}>Email Address *</label>
-                                <input name="email" type="email" className={styles.input} required />
+                                <label className={styles.label} htmlFor="checkout-email">Email Address *</label>
+                                <input id="checkout-email" name="email" type="email" className={styles.input} required autoComplete="email" />
                             </div>
 
                             <div className={styles.formGroup}>
-                                <label className={styles.label}>Address Line 1 *</label>
-                                <input name="addressLine1" type="text" className={styles.input} required />
+                                <label className={styles.label} htmlFor="checkout-address1">Address Line 1 *</label>
+                                <input id="checkout-address1" name="addressLine1" type="text" className={styles.input} required autoComplete="address-line1" />
                             </div>
 
                             <div className={styles.row}>
                                 <div className={styles.formGroup}>
-                                    <label className={styles.label}>City *</label>
-                                    <input name="addressCity" type="text" className={styles.input} required />
+                                    <label className={styles.label} htmlFor="checkout-city">City *</label>
+                                    <input id="checkout-city" name="addressCity" type="text" className={styles.input} required autoComplete="address-level2" />
                                 </div>
                                 <div className={styles.formGroup}>
-                                    <label className={styles.label}>State/Province</label>
-                                    <input name="addressState" type="text" className={styles.input} />
+                                    <label className={styles.label} htmlFor="checkout-state">State/Province</label>
+                                    <input id="checkout-state" name="addressState" type="text" className={styles.input} autoComplete="address-level1" />
                                 </div>
                             </div>
 
                             <div className={styles.row}>
                                 <div className={styles.formGroup}>
-                                    <label className={styles.label}>Postal Code *</label>
-                                    <input name="addressZip" type="text" className={styles.input} required />
+                                    <label className={styles.label} htmlFor="checkout-zip">Postal Code *</label>
+                                    <input id="checkout-zip" name="addressZip" type="text" className={styles.input} required autoComplete="postal-code" />
                                 </div>
                                 <div className={styles.formGroup}>
-                                    <label className={styles.label}>Country *</label>
-                                    <input name="addressCountry" type="text" className={styles.input} defaultValue="IT" required />
+                                    <label className={styles.label} htmlFor="checkout-country">Country *</label>
+                                    <input id="checkout-country" name="addressCountry" type="text" className={styles.input} defaultValue="IT" required autoComplete="country-name" />
                                 </div>
                             </div>
 

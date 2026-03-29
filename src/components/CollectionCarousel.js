@@ -71,6 +71,7 @@ export default function CollectionCarousel({ collections }) {
                     {total > 1 && (
                         <div className={styles.arrows}>
                             <button
+                                type="button"
                                 className={styles.arrowBtn}
                                 onClick={goPrev}
                                 aria-label="Previous collection"
@@ -80,6 +81,7 @@ export default function CollectionCarousel({ collections }) {
                                 </svg>
                             </button>
                             <button
+                                type="button"
                                 className={styles.arrowBtn}
                                 onClick={goNext}
                                 aria-label="Next collection"
@@ -93,14 +95,21 @@ export default function CollectionCarousel({ collections }) {
 
                     {/* Dot indicators */}
                     {total > 1 && (
-                        <div className={styles.dots}>
+                        <div className={styles.dots} role="group" aria-label="Choose collection">
                             {collections.map((_, i) => (
                                 <button
                                     key={i}
-                                    className={`${styles.dot} ${i === activeIndex ? styles.dotActive : ""}`}
+                                    type="button"
+                                    className={styles.dot}
                                     onClick={() => goTo(i)}
-                                    aria-label={`Go to collection ${i + 1}`}
-                                />
+                                    aria-label={`Collection ${i + 1} of ${total}`}
+                                    aria-current={i === activeIndex ? "true" : undefined}
+                                >
+                                    <span
+                                        className={`${styles.dotVisual} ${i === activeIndex ? styles.dotVisualActive : ""}`}
+                                        aria-hidden
+                                    />
+                                </button>
                             ))}
                         </div>
                     )}

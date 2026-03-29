@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/components/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -55,11 +56,15 @@ export default function CartPage() {
                                 {items.map((item) => (
                                     <div key={item.variantId} className={styles.item}>
                                         {item.imageUrl ? (
-                                            <img
-                                                src={item.imageUrl}
-                                                alt={item.name}
-                                                className={styles.itemImage}
-                                            />
+                                            <div className={styles.itemImageWrap}>
+                                                <Image
+                                                    src={item.imageUrl}
+                                                    alt={item.name}
+                                                    fill
+                                                    sizes="100px"
+                                                    className={styles.itemImage}
+                                                />
+                                            </div>
                                         ) : (
                                             <div className={styles.itemImagePlaceholder}>
                                                 No img
@@ -82,8 +87,10 @@ export default function CartPage() {
 
                                             <div className={styles.itemActions}>
                                                 <button
+                                                    type="button"
                                                     className={styles.qtyBtn}
                                                     onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                                                    aria-label={`Decrease quantity of ${item.name}`}
                                                 >
                                                     −
                                                 </button>
@@ -91,15 +98,19 @@ export default function CartPage() {
                                                     {item.quantity}
                                                 </span>
                                                 <button
+                                                    type="button"
                                                     className={styles.qtyBtn}
                                                     onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                                                    aria-label={`Increase quantity of ${item.name}`}
                                                 >
                                                     +
                                                 </button>
 
                                                 <button
+                                                    type="button"
                                                     className={styles.removeBtn}
                                                     onClick={() => removeItem(item.variantId)}
+                                                    aria-label={`Remove ${item.name} from bag`}
                                                 >
                                                     Remove
                                                 </button>
