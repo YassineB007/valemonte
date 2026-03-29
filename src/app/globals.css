@@ -9,7 +9,7 @@
   --clr-surface: #1a1714;
   --clr-surface-light: #2a2520;
   --clr-cream: #e8e3d9;
-  --clr-cream-muted: rgba(212, 207, 197, 0.7);
+  --clr-cream-muted: rgba(212, 207, 197, 0.78);
   /* Slightly higher contrast for WCAG AA body text on dark surfaces */
   --clr-cream-dim: rgba(212, 207, 197, 0.55);
   --clr-cream-faint: rgba(212, 207, 197, 0.35);
@@ -42,14 +42,9 @@
   box-sizing: border-box;
 }
 
+/* Avoid smooth scroll: it can lower Lighthouse scroll/interaction scores */
 html {
-  scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  scroll-behavior: auto;
 }
 
 .sr-only {
@@ -79,20 +74,30 @@ html {
   border-radius: 2px;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   left: 16px;
   top: 16px;
-  outline: 2px solid var(--clr-gold);
-  outline-offset: 2px;
 }
 
 body {
+  position: relative;
   background: var(--clr-bg);
   color: var(--clr-cream);
   font-family: var(--font-sans, "Inter", sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Visible focus (Tailwind preflight often removes outlines) */
+:where(a, button, input, textarea, select):focus {
+  outline: none;
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--clr-gold);
+  outline-offset: 3px;
 }
 
 h1,

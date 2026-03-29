@@ -39,19 +39,7 @@ export default function CheckoutPage() {
         }
     };
 
-    if (!loaded) {
-        return (
-            <>
-                <Navbar />
-                <Main className={styles.page}>
-                    <div className={styles.container}>
-                        <p className={styles.subtitle}>Loading checkout…</p>
-                    </div>
-                </Main>
-                <Footer />
-            </>
-        );
-    }
+    if (!loaded) return null;
 
     if (status === "success") {
         return (

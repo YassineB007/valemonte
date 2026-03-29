@@ -2,6 +2,13 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  experimental: {
+    optimizePackageImports: [
+      "@storyblok/react",
+      "@supabase/ssr",
+      "@supabase/supabase-js",
+    ],
+  },
   images: {
     remotePatterns: [
       {
